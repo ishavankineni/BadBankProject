@@ -13,7 +13,7 @@ const CreateAccount = () => {
   const [emailError, setemailError] = useState("");
   const { user, setUser } = useContext(AppContext);
   const [formIsValid, setFormIsValid] = useState(false);
-  const [formTouched,setFormTouched]=useState(false);//
+  const [formTouched,setFormTouched]=useState(null);//
   const [buttonName,setButtonName]=useState('CREATE ACCOUNT');//
   //const navigate = useNavigate();
   const handleValidation = (event) => {
@@ -51,13 +51,13 @@ const CreateAccount = () => {
   };
   useEffect(() => {
     //console.log(password);
-    //console.log(disableButton);
+    console.log('formtouched '+formTouched, formIsValid , nameError,emailError,passwordError);
     if(formTouched){
       handleValidation();
     }
-    setFormIsValid(()=>(nameError === "" && passwordError === "" && emailError === ""));
+    setFormIsValid(()=>(nameError=="" && passwordError == "" && emailError == ""));
     //console.log(formIsValid);
-  }, [name, email, password,nameError,emailError,passwordError,formTouched]);
+  }, [name, email, password,nameError,emailError,passwordError,handleValidation]);
 
   const loginSubmit = (e) => {
     e.preventDefault();
@@ -104,7 +104,7 @@ const CreateAccount = () => {
                     placeholder="Enter name"
                     onChange={(event) => {
                       setName(() => event.target.value);
-                      //handleValidation(event);
+                      handleValidation(event);
                       setFormTouched(()=>true);
                     }}
                   />
@@ -126,7 +126,7 @@ const CreateAccount = () => {
                     placeholder="Enter email"
                     onChange={(event) => {
                       setEmail(() => event.target.value);
-                      //handleValidation(event);
+                      handleValidation(event);
                       setFormTouched(()=>true);
                     }}
                   />
@@ -143,7 +143,7 @@ const CreateAccount = () => {
                     placeholder="Password"
                     onChange={(event) => {
                       setPassword(() => event.target.value);
-                      //handleValidation(event);
+                      handleValidation(event);
                       setFormTouched(()=>true);
                     }}
                   />
@@ -155,7 +155,7 @@ const CreateAccount = () => {
                   type="submit"
                   className="btn btn-primary"
                   style={{ marginTop: "10px" }}
-                  disabled={!formIsValid}
+                  disabled={formTouched===null?true:!formIsValid}
                 >
                   {buttonName}
                 </button>
