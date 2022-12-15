@@ -55,9 +55,9 @@ const CreateAccount = () => {
     if(formTouched){
       handleValidation();
     }
-    setFormIsValid(()=>(nameError=="" && passwordError == "" && emailError == ""));
+    setFormIsValid(()=>(nameError==="" && passwordError === "" && emailError === ""));
     //console.log(formIsValid);
-  }, [name, email, password,nameError,emailError,passwordError,handleValidation]);
+  }, [name, email, password,nameError,emailError,passwordError,handleValidation,formIsValid,formTouched]);
 
   const loginSubmit = (e) => {
     e.preventDefault();
